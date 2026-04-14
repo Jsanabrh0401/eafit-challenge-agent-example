@@ -41,9 +41,21 @@ This agent is a **child service** of the EAFIT Challenge organization. It:
 - Docker and Docker Compose
 - [ngrok](https://ngrok.com/) (authenticated)
 - `curl`, `jq`
-- An OpenAI API key
+- An OpenAI API key (or other LLM provider)
+- [Hologram Messaging](https://hologram.zone) on your phone
+- An **EAFIT Avatar credential** (see below)
 
 The setup script connects to the deployed EAFIT organization at `admin.organization.eafit.testnet.verana.network` to obtain the Service credential. No local organization instance is required.
+
+### Get your EAFIT Avatar Credential
+
+The chatbot uses **credential-based authentication** — you need an EAFIT Avatar credential to test your agent.
+
+1. Open **Hologram Messaging** on your phone
+2. Navigate to https://avatar.eafit.testnet.verana.network/
+3. Scan the QR code and follow the prompts to obtain your credential
+
+You can verify it works by connecting to the deployed example agent at https://example-agent.eafit.testnet.verana.network/ — scan the QR code, authenticate with your credential, and chat with the bot.
 
 ### Quick Start
 
@@ -52,8 +64,7 @@ The setup script connects to the deployed EAFIT organization at `admin.organizat
 source config.env
 ./scripts/setup.sh
 
-# 2. Start the full stack (chatbot + redis + postgres)
-export NGROK_DOMAIN=<your-ngrok-domain>
+# 2. Start the chatbot stack (chatbot + redis + postgres)
 export OPENAI_API_KEY=sk-...
 ./scripts/start.sh
 ```

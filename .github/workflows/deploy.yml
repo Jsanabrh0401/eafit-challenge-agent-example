@@ -142,7 +142,9 @@ jobs:
       - name: Check EAFIT organization admin API
         if: inputs.step == 'get-credentials' || inputs.step == 'all'
         run: |
-          curl -sf "${ORG_VS_ADMIN_URL}/v1/agent" > /dev/null || {
+          # Public org admin ingress exposes Swagger at /api;
+          # /v1/agent is not publicly exposed in this environment.
+          curl -sf "${ORG_VS_ADMIN_URL}/api" > /dev/null || {
             echo "::error::EAFIT organization admin API not reachable at ${ORG_VS_ADMIN_URL}"
             exit 1
           }

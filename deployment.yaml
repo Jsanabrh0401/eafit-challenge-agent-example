@@ -11,7 +11,7 @@ chartSource: oci://registry-1.docker.io/io2060/hologram-generic-ai-agent-chart
 chartVersion: v1.11.2
 
 global:
-  domain: eafit.testnet.verana.network
+  domain: agents.team-e.teams.eafit.testnet.verana.network
 
 nameOverride: 'example-agent-chart'
 
@@ -142,12 +142,12 @@ artemis:
 vs-agent-chart:
   enabled: true
   name: example-agent
-  didcommLabel: 'Example Agent'
+  didcommLabel: 'trAIner'
   didcommInvitationImageUrl: 'https://hologram.zone/images/github.svg'
   eventsBaseUrl: http://example-agent-chart-chatbot:3003
   ingress:
-    host: "example-agent.{{ .Values.global.domain }}"
-    tlsSecret: "example-agent.{{ .Values.global.domain }}-cert"
+    host: "trainer.{{ .Values.global.domain }}"
+    tlsSecret: "trainer.{{ .Values.global.domain }}-cert"
     public:
       enableCors: true
     private:
@@ -171,6 +171,6 @@ vs-agent-chart:
     - name: SELF_ISSUED_VTC_SERVICE_TYPE
       value: "AI Agent"
     - name: SELF_ISSUED_VTC_SERVICE_DESCRIPTION
-      value: "Example AI agent for the EAFIT Challenge"
+      value: "trAIner - AI personal fitness trainer for the EAFIT Challenge"
     - name: SELF_ISSUED_VTC_SERVICE_MINIMUMAGEREQUIRED
       value: "1"

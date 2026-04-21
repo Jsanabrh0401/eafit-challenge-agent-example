@@ -197,6 +197,6 @@ jobs:
         run: |
           echo "## Example Agent VS" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "- **VS Agent:** https://example-agent.eafit.testnet.verana.network/.well-known/did.json" >> "$GITHUB_STEP_SUMMARY"
+          echo "- **VS Agent:** ${AGENT_PUBLIC_URL}/.well-known/did.json" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Network:** testnet" >> "$GITHUB_STEP_SUMMARY"
           echo "- **Chart:** ${CHART_SOURCE:-}:${CHART_VERSION:-}" >> "$GITHUB_STEP_SUMMARY"

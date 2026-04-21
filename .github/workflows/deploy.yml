@@ -139,22 +139,19 @@ jobs:
           }
           echo "Port-forward to Example Agent VS-Agent on :3002"
 
-      - name: Port-forward organization Agent
+      - name: Check EAFIT organization admin API
         if: inputs.step == 'get-credentials' || inputs.step == 'all'
         run: |
-          kubectl port-forward -n "$CHART_NAMESPACE" "svc/organization" 3000:3000 &
-          echo "ORG_PF_PID=$!" >> "$GITHUB_ENV"
-          sleep 5
-          curl -sf http://localhost:3000/v1/agent > /dev/null || {
-            echo "::error::Port-forward to organization-Agent failed"
+          curl -sf "${ORG_VS_ADMIN_URL}/v1/agent" > /dev/null || {
+            echo "::error::EAFIT organization admin API not reachable at ${ORG_VS_ADMIN_URL}"
             exit 1
           }
-          echo "Port-forward to organization-Agent on :3000"
+          echo "EAFIT organization admin API reachable at ${ORG_VS_ADMIN_URL}"
 
       - name: Get Service credential
         if: inputs.step == 'get-credentials' || inputs.step == 'all'
         run: |
-          ORG_ADMIN_API="http://localhost:3000"
+          ORG_ADMIN_API="${ORG_VS_ADMIN_URL}"
           CHILD_ADMIN_API="http://localhost:3002"
           source common/common.sh
           set_network_vars "$NETWORK"
@@ -192,7 +189,6 @@ jobs:
         if: always()
         run: |
           [ -n "${CHILD_PF_PID:-}" ] && kill "$CHILD_PF_PID" 2>/dev/null || true
-          [ -n "${ORG_PF_PID:-}" ] && kill "$ORG_PF_PID" 2>/dev/null || true
 
       - name: Summary
         if: always()

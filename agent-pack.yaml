@@ -68,7 +68,8 @@ languages:
 
 llm:
   provider: openai
-  model: gpt-5.4-mini
+  model: llama-3.3-70b-versatile
+  baseUrl: https://api.groq.com/openai/v1
   temperature: 0.2
   agentPrompt: >-
     "You are a GitHub assistant agent.\n\
